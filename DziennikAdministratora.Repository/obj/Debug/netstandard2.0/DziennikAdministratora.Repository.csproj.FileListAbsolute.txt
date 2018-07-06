@@ -1,0 +1,9 @@
+C:\Users\mlapinski\Documents\DziennikAdmina\DziennikAdministratora.Repository\bin\Debug\netstandard2.0\DziennikAdministratora.Repository.deps.json
+C:\Users\mlapinski\Documents\DziennikAdmina\DziennikAdministratora.Repository\bin\Debug\netstandard2.0\DziennikAdministratora.Repository.dll
+C:\Users\mlapinski\Documents\DziennikAdmina\DziennikAdministratora.Repository\bin\Debug\netstandard2.0\DziennikAdministratora.Repository.pdb
+C:\Users\mlapinski\Documents\DziennikAdmina\DziennikAdministratora.Repository\obj\Debug\netstandard2.0\DziennikAdministratora.Repository.csprojAssemblyReference.cache
+C:\Users\mlapinski\Documents\DziennikAdmina\DziennikAdministratora.Repository\obj\Debug\netstandard2.0\DziennikAdministratora.Repository.csproj.CoreCompileInputs.cache
+C:\Users\mlapinski\Documents\DziennikAdmina\DziennikAdministratora.Repository\obj\Debug\netstandard2.0\DziennikAdministratora.Repository.AssemblyInfoInputs.cache
+C:\Users\mlapinski\Documents\DziennikAdmina\DziennikAdministratora.Repository\obj\Debug\netstandard2.0\DziennikAdministratora.Repository.AssemblyInfo.cs
+C:\Users\mlapinski\Documents\DziennikAdmina\DziennikAdministratora.Repository\obj\Debug\netstandard2.0\DziennikAdministratora.Repository.dll
+C:\Users\mlapinski\Documents\DziennikAdmina\DziennikAdministratora.Repository\obj\Debug\netstandard2.0\DziennikAdministratora.Repository.pdb

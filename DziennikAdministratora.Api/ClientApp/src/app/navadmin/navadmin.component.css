@@ -1,0 +1,57 @@
+li .glyphicon {
+    margin-right: 10px;
+}
+
+/* Highlighting rules for nav menu items */
+li.link-active a,
+li.link-active a:hover,
+li.link-active a:focus {
+    background-color: rgb(120, 171, 236);
+    color: brown;
+    border-radius: 5px;
+}
+
+.nav-admin {
+    position: fixed;
+    top: 15%;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+@media (min-width: 768px){
+    .nav-admin {
+        height: 100%;
+        width: calc(25% - 25px);
+        background-color:  rgb(243, 146, 238); 
+        border: 1px solid rgb(245, 141, 248);
+    }
+
+    .navbar {
+        border-radius: 0px;
+        border-width: 0px;
+        height: 100%;
+    }
+
+    .navbar ul {
+        float: none;
+    }
+    .navbar li {
+        float: none;
+        font-size: 15px;
+        margin: 6px;
+        height: 100%;
+        border-radius: 2px;
+    }
+    .navbar li a {
+        padding: 10px 16px;
+        border-radius: 4px;
+    }
+    .navbar a {
+        /* If a menu item's text is too long, truncate it */
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

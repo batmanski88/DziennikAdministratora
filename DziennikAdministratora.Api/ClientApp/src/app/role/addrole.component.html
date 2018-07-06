@@ -1,0 +1,17 @@
+<section class='addrole' >
+    <div class='row'>
+        <h2> {{ title }} </h2>
+        <form (ngSubmit)="save(role)" #roleForm="ngForm">
+            <div class='form-group row'>
+                <label class='control-label col-md-2'> Nazwa: </label>
+                <div class='col-sm-3'>
+                    <input class='form-control' [(ngModel)]="role.name" type="text" name="name">
+                </div>
+            </div>
+            <div class='form-group row'>
+                <button type='submit' class='btn btn-primary'>Zapisz</button>
+                <button class='btn btn-default' (click)='cancel()' type='button'>Zamknij</button>
+            </div>
+        </form>
+    </div>
+</section>

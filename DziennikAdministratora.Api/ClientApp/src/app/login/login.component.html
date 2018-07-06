@@ -1,0 +1,22 @@
+<section class='login-section container body-content'>
+    <div class='row'>
+        <h2> {{ title }} </h2>
+        <form (ngSubmit)="save(login)" #roleForm="ngForm">
+            <div class='form-group row'>
+                <label class='control-label col-md-2'> Email: </label>
+                <div class='col-sm-3'>
+                    <input class='form-control' [(ngModel)]="login.email" type="email" name="name">
+                </div>
+            </div>
+            <div class='form-group row'>
+                <label class='control-label col-md-2'> Password: </label>
+                <div class='col-sm-3'>
+                    <input class='form-control' [(ngModel)]="login.password" type="password" name="name">
+                </div>
+            </div>
+            <div class='form-group row'>
+                <button type='submit' class='btn btn-primary'>Zaloguj</button>
+            </div>
+        </form>
+    </div>
+</section>

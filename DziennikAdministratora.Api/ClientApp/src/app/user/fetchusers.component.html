@@ -1,0 +1,53 @@
+<section class='fetch-roles'>
+    <div class='row'>
+    <p *ngIf="!users"><em>Loading...</em></p>
+    <p>{{ tempinfo }}</p>
+        <div class='col-sm-3'>
+            <a [routerLink]="['/admin/adduser']" class='btn btn-primary'>Dodaj użytkownika</a>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-sm-8'>
+            <div class='col-sm-3'>
+                <label> Email </label>
+            </div>
+            <div class='col-sm-3'>
+                <label> Nazwa użytkownika </label>
+            </div>
+            <div class='col-sm-2'>
+                <label> Role </label>
+            </div>
+            <div class='col-sm-2'>
+                <label> Utworzono </label>
+            </div>
+            <div class='col-sm-2'>
+                <label> Akutalizacja </label>
+            </div>
+        </div>
+        <div class='col-sm-4'>
+        </div>
+    </div>
+    <div class='row' *ngFor="let user of users">
+        <div class='col-sm-8'>
+            <div class='col-sm-3'>
+                {{ user.email }}
+            </div>
+            <div class='col-sm-3'>
+                {{ user.userName }}
+            </div>
+            <div class='col-sm-2' *ngFor="let role of user.roles">
+                {{ role.name }} 
+            </div>
+            <div class='col-sm-2'>
+                {{ user.createdAt | dateFormat}}
+            </div>
+            <div class='col-sm-2'>
+                {{ user.updatedAt | dateFormat}}
+            </div>
+        </div>
+        <div class='col-sm-4'>
+            <a [routerLink]="['/admin/user/edit/', user.userId]" class="btn btn-warning">Edycja</a> |
+            <a [routerLink]="" (click)="delete(user.userId)" class="btn btn-danger">Usuń</a>
+        </div>
+    </div>
+</section>
