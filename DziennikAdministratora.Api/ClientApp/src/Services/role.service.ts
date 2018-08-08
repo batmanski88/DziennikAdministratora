@@ -27,7 +27,7 @@ export class RoleService extends RoleBackendService {
     }
 
     addRole(newRole: Role){
-        return this._http.post<number>(this.baseUrl + 'api/admin/Role/AddRole', JSON.stringify(newRole))
+        return this._http.post<number>(this.baseUrl + 'api/admin/Role/AddRole', newRole, httpOptions)
         .map(response => {
             return response;
         })
@@ -59,7 +59,7 @@ export class RoleService extends RoleBackendService {
     }
 
     updateRole(updateRole: Role){
-        return this._http.put<number>(this.baseUrl + 'api/admin/Role/UpdateRole', JSON.stringify(updateRole))
+        return this._http.put<number>(this.baseUrl + 'api/admin/Role/UpdateRole', updateRole, httpOptions)
             .map(response => {
                 return response;
             })

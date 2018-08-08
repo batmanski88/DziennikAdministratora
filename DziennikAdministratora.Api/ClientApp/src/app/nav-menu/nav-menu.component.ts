@@ -1,44 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { LoginService } from '../../Services/login.service';
+import { AuthGuard } from '../guards';
 
 @Component({
   selector: 'app-nav-menu',
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
-export class NavMenuComponent implements OnInit {
+export class NavMenuComponent {
   isExpanded = false;
-  loggedIn = true;
-  subscription: Subscription = new Subscription();
-
-  constructor(private loginService: LoginService){
-    if(localStorage.getItem('currentUser'))
-    {
-      this.loggedIn = false;
-    }
-    else if(!localStorage.getItem('currentUser'))
-    {
-      this.loggedIn = true;
-    }
+  public get loggedIn(): boolean {
+    return this.loginService.isAuthenticated();
   }
 
-  ngOnInit(){
-    if(localStorage.getItem('currentUser'))
-    {
-      this.loggedIn = false;
-    }
-    else if(localStorage.getItem('currentUser'))
-    {
-      this.loggedIn = true;
-    }
+  constructor(private loginService: LoginService, private authGuard: AuthGuard) {
   }
 
-  logout(){
+  logout() {
     this.loginService.logOut();
-    localStorage.removeItem('currentUser');
-    this.loggedIn = false;
-}
+  }
 
   collapse() {
     this.isExpanded = false;

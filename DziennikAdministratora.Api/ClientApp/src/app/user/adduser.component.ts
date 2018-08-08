@@ -2,43 +2,45 @@ import {Component, OnInit, Input} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RoleService } from './../../Services/role.service';
 import { UserService } from './../../Services/user.service';
-import { Role } from '../../models/role'; 
-import { User } from '../../models/user';
-import { Observable } from 'rxjs';
+import { Role } from '../models/role';
+import { User } from '../models/user';
 
 @Component({
-    selector: 'adduser', 
+    // tslint:disable-next-line:component-selector
+    selector: 'adduser',
     templateUrl: './adduser.component.html'
 })
 
+// tslint:disable-next-line:component-class-suffix
 export class AddUser implements OnInit {
-    
-    constructor(private roleService : RoleService, private userService: UserService ,private avRoute: ActivatedRoute, private _router: Router){
-        if(this.avRoute.snapshot.params["id"]) {
-            this.id = this.avRoute.snapshot.params["id"];
+
+    // tslint:disable-next-line:max-line-length
+    constructor(private roleService: RoleService, private userService: UserService , private avRoute: ActivatedRoute, private _router: Router) {
+        if (this.avRoute.snapshot.params['id']) {
+            this.id = this.avRoute.snapshot.params['id'];
         }
 
-        this.roles = this.getRoles(); 
+        this.roles = this.getRoles();
     }
 
-    title: string = "Nowy Użytkownik";
-    id: string = "";
+    title = 'Nowy Użytkownik';
+    id = '';
     errorMessaage: any;
-    roles : Array<Role> = new Array<Role>();
-    selectedRole : String = ""
-    roleToDb: Role[];
-    role : Role;
-    userToDb: Observable<User>;
-
-    ngOnInit(){
-        if(this.id != ""){
-            this.title = "Edycja";
+    roles: Role[];
+    selectedRole: String = '';
+    roleToDb: Role;
+    role: Role;
+    user: User = new User();
+    response: any;
+    ngOnInit() {
+        if (this.id !== '') {
+            this.title = 'Edycja';
             this.userService.getUser(this.id)
                 .subscribe(resp => {
-                    this.userToDb = resp
+                    this.user = resp;
                 });
 
-            this.getRoles() 
+            this.getRoles();
         }
     }
 
@@ -47,28 +49,27 @@ export class AddUser implements OnInit {
             rolesDb => {
                     this.roles = rolesDb;
             }
-        )
+        );
 
         return this.roles;
     }
 
-    onRoleSelected(val : any) 
-    {   
-        this.getRolesBySelectedId(val)
+    onRoleSelected(val: any) {
+        this.getRolesBySelectedId(val);
     }
 
-    getRolesBySelectedId(val : any) 
-    {
-        return this.roleToDb = val
+    getRolesBySelectedId(val: any) {
+        return this.roleToDb = val;
     }
 
     save(userObj: User) {
-        userObj.role = this.role
-        if(this.title == "Nowy Użytkownik") {
+        userObj.role = this.roleToDb;
+        if (this.title === 'Nowy Użytkownik') {
             this.userService.addUser(userObj)
                 .subscribe((data) => {
+                    this.response = data;
                     this._router.navigate(['admin/users']);
-                }, error => this.errorMessaage = error)
+                }, error => this.errorMessaage = error);
         }
         // else if(this.title == "Edycja") {
         //     this.userService.updateUser(userObj)
@@ -78,7 +79,7 @@ export class AddUser implements OnInit {
         // }
     }
 
-    cancel(){
+    cancel() {
         this._router.navigate(['admin/users']);
     }
 }

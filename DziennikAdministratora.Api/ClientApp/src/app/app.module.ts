@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -22,8 +23,7 @@ import { LoginUser } from './login/login.component';
 import { NavAdminComponent } from './navadmin/navadmin.component';
 import { HttpModule } from '@angular/http';
 import { AuthGuard } from './guards';
-import { AlertService } from '../Services/alert.service';
-import { AlertComponent } from './alerts/alert.component';
+import { EqualValidator } from './helpers/matchValidator';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,7 @@ import { AlertComponent } from './alerts/alert.component';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    HomeComponent, 
+    HomeComponent,
     FetchRoleComponent,
     AddRole,
     FetchUserComponent,
@@ -41,18 +41,19 @@ import { AlertComponent } from './alerts/alert.component';
     LoginUser,
     AdminComponent,
     NavAdminComponent,
-    AlertComponent
+    EqualValidator
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     HttpModule,
     FormsModule,
+    CommonModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'admin', component: AdminComponent, children: [
+      { path: 'admin', component: AdminComponent, canActivate: [AuthGuard], children: [
         { path: 'roles', component: FetchRoleComponent },
         { path: 'addrole', component: AddRole },
         { path: 'role/edit/:id', component: AddRole},
@@ -67,8 +68,7 @@ import { AlertComponent } from './alerts/alert.component';
     RoleService,
     UserService,
     LoginService,
-    AuthGuard,
-    AlertService
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

@@ -1,25 +1,27 @@
 import {Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Role } from '../../models/role';
+import { Role } from '../models/role';
 import { RoleService } from './../../Services/role.service';
 import { UserService } from './../../Services/user.service';
-import { User } from '../../models/user';
+import { User } from '../models/user';
 
 @Component({
+    // tslint:disable-next-line:component-selector
     selector: 'fetchusers',
-    templateUrl: './fetchusers.component.html'
+    templateUrl: './fetchusers.component.html',
+    styleUrls: ['./fetchusers.component.css']
 })
 
 export class FetchUserComponent implements OnInit {
     roles: Array<Role> = new Array<Role>();
-    tempinfo: string = ""
+    tempinfo = '';
     users: User[];
 
-    constructor(private roleService : RoleService, private router : Router, private userService: UserService){
+    constructor(private roleService: RoleService, private router: Router, private userService: UserService) {
 
     }
 
-    ngOnInit(){
+    ngOnInit() {
         this.getUsers();
     }
 
@@ -28,15 +30,18 @@ export class FetchUserComponent implements OnInit {
             .subscribe( (data) => {
                 this.users = data;
             }, error => console.log(error));
-            
+
     }
 
-    delete(id: string){
-        var ans = confirm("Czy na pewno chcesz usunąc?")
-        if(ans) [
+    delete(id: string) {
+        // tslint:disable-next-line:prefer-const
+        let ans = confirm('Czy na pewno chcesz usunąc?');
+        // tslint:disable-next-line:no-unused-expression
+        if (ans) { [
             this.userService.deleteUser(id).subscribe((data) => {
                 this.getUsers();
             }, error => console.log(error))
-        ]
+        ];
+        }
     }
 }

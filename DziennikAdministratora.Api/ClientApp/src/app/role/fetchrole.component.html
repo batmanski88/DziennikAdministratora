@@ -6,16 +6,17 @@
             <a [routerLink]="['/admin/addrole']" class='btn btn-primary'>Dodaj role</a>
         </div>
     </div>
+    <hr />
     <div class='row'>
-        <div class='col-sm-2'>
+        <div class='col-md-2'>
             <label> Nazwa roli </label>
         </div>
     </div>
     <div class='row' *ngFor="let role of roles">
-        <div class='col-sm-2'>
+        <div class='col-md-2'>
             {{ role.name }}
         </div>
-        <div class='col-sm-10'>
+        <div class='col-md-10'>
             <a [routerLink]="['/admin/role/edit/', role.roleId]" class="btn btn-warning">Edycja</a> |
             <a [routerLink]="" (click)="delete(role.roleId)" class="btn btn-danger">Usuń</a>
         </div>

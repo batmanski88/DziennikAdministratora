@@ -6,39 +6,48 @@ import { UserBackendService } from '../Services/userBackend.service';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
+import { HttpHeaders, HttpClient } from '../../node_modules/@angular/common/http';
 
+const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': 'my-auth-token'
+    })
+  };
+  
 @Injectable()
 
 export class UserService extends UserBackendService{
     user : User;
+    users: Observable<User>
     baseUrl : string = "";
 
-    constructor(private _http : Http, @Inject('BASE_URL') _baseUrul : string){
+    constructor(private _http : HttpClient, @Inject('BASE_URL') _baseUrul : string){
         super()
         this.baseUrl = this.baseUrl;
     }
 
     public addUser(newUser: User){
-        return this._http.post(this.baseUrl + "api/admin/User/AddUserAsync", JSON.stringify(newUser))
-            .map((response: Response) => response.json())
+        return this._http.post<number>(this.baseUrl + "api/admin/User/AddUserAsync", newUser, httpOptions)
+            .map( response => {return response})
             .catch(this.errorHandler)
     }
 
     public getUser(Id: string){
-        return this._http.get(this.baseUrl + "api/admin/User/GetUserById/" + Id)
-            .map(resp => resp.json())
+        return this._http.get<User>(this.baseUrl + "api/admin/User/GetUserById/" + Id)
+            .map(resp => { return resp})
             .catch(error => this.errorHandler(error))
     }
 
     public getUsers(){
-        return this._http.get(this.baseUrl + "api/admin/User/GetUsers")
-            .map(resp => resp.json())
+        return this._http.get<User[]>(this.baseUrl + "api/admin/User/GetUsers")
+            .map(resp => { return resp})
             .catch(this.errorHandler)
     }
 
     public deleteUser(Id: string){
-        return this._http.delete(this.baseUrl + "api/admin/User/DeleteUserAsync/" + Id)
-            .map((response: Response) => response.json())
+        return this._http.delete<number>(this.baseUrl + "api/admin/User/DeleteUserAsync/" + Id)
+            .map(resp => { return resp})
             .catch(this.errorHandler)
     }
 

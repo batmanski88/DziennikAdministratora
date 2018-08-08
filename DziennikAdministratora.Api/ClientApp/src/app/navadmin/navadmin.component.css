@@ -11,20 +11,22 @@ li.link-active a:focus {
     border-radius: 5px;
 }
 
-.nav-admin {
-    position: fixed;
-    top: 15%;
-    left: 0;
-    right: 0;
-    z-index: 1;
+@media (min-height: 600px) {
+    .nav-admin {
+        margin-top: 20%;
+    }
 }
 
-@media (min-width: 768px){
     .nav-admin {
-        height: 100%;
-        width: calc(25% - 25px);
+        position: fixed;
+        top: 13%;
+        left: 0;
+        right: 0;
+        width: calc(20% - 25px);
         background-color:  rgb(243, 146, 238); 
-        border: 1px solid rgb(245, 141, 248);
+        border: 1px solid rgb(240, 6, 248);
+        margin: 10px 5px 10px 3px;
+        border-radius: 3%;
     }
 
     .navbar {
@@ -54,4 +56,3 @@ li.link-active a:focus {
         overflow: hidden;
         text-overflow: ellipsis;
     }
-}

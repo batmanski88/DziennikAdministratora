@@ -44,7 +44,7 @@ namespace DziennikAdministratora.Api.Controllers
 
             await _accountService.RegisterUserAsync(model);
 
-            return new OkObjectResult("Konto zosatło utworzone");
+            return CreatedAtAction("GetUsers", new { id = model.Email});
         }
 
         [HttpDelete]

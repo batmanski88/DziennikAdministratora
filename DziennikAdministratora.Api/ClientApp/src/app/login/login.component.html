@@ -1,21 +1,34 @@
 <section class='login-section container body-content'>
     <div class='row'>
         <h2> {{ title }} </h2>
-        <form (ngSubmit)="save(login)" #roleForm="ngForm">
+        <form (ngSubmit)="save(login)" #loginForm="ngForm">
             <div class='form-group row'>
                 <label class='control-label col-md-2'> Email: </label>
                 <div class='col-sm-3'>
-                    <input class='form-control' [(ngModel)]="login.email" type="email" name="name">
+                    <input class='form-control' [(ngModel)]="login.email" type="email" name="email" required email id="email" #email="ngModel">
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                        <div *ngIf="email.errors.required">
+                            Email jest wymagany.
+                        </div>
+                        <div *ngIf="email.errors.email">
+                            Niepoprawna forma adresu email.
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class='form-group row'>
-                <label class='control-label col-md-2'> Password: </label>
+                <label class='control-label col-md-2'> Hasło: </label>
                 <div class='col-sm-3'>
-                    <input class='form-control' [(ngModel)]="login.password" type="password" name="name">
+                    <input class='form-control' [(ngModel)]="login.password" type="password" name="name" required  #password="ngModel">
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+                        <div *ngIf="password.errors.required">
+                            Hasło jest wymagane.
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class='form-group row'>
-                <button type='submit' class='btn btn-primary'>Zaloguj</button>
+                <button type='submit' class='btn btn-primary' [disabled]="!loginForm.valid">Zaloguj</button>
             </div>
         </form>
     </div>

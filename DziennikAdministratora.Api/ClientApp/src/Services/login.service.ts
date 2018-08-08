@@ -38,7 +38,16 @@ export class LoginService extends LoginBackendService {
     }
 
     logOut() {
-        sessionStorage.removeItem('currentUser');
+        localStorage.removeItem('currentUser');
+    }
+
+    isAuthenticated(): boolean {
+        if(localStorage.getItem('currentUser') != null){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     
     errorHandler(error: Response){

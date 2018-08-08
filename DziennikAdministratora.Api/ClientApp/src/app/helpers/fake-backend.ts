@@ -24,7 +24,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             if (request.url.endsWith('/api/login') && request.method === 'POST') {
                 // find if any user matches login credentials
                 let filteredUsers = users.filter(user => {
-                    return user.username === request.body.username && user.password === request.body.password;
+                    return user.email === request.body.username && user.password === request.body.password;
                 });
 
                 if (filteredUsers.length) {
@@ -32,9 +32,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     let user = filteredUsers[0];
                     let body = {
                         id: user.id,
-                        username: user.username,
-                        firstName: user.firstName,
-                        lastName: user.lastName,
+                        username: user.email,
                         token: 'fake-jwt-token'
                     };
 
