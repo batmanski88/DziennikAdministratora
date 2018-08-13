@@ -13,61 +13,68 @@ const httpOptions = {
       'Authorization': 'my-auth-token'
     })
   };
-  
 @Injectable()
 
 export class RoleService extends RoleBackendService {
-    role : Observable<Role>;
-    roles : Observable<Role[]>;
-    baseUrl : string = "";
+    role: Observable<Role>;
+    roles: Observable<Role[]>;
+    baseUrl: '';
 
-    constructor(private _http : HttpClient , @Inject('BASE_URL') _baseUrul : string){
-        super()
+    constructor(private _http: HttpClient , @Inject('BASE_URL') _baseUrul: string) {
+        super();
         this.baseUrl = this.baseUrl;
     }
 
-    addRole(newRole: Role){
+    addRole(newRole: Role) {
         return this._http.post<number>(this.baseUrl + 'api/admin/Role/AddRole', newRole, httpOptions)
         .map(response => {
             return response;
         })
-        .catch(this.errorHandler)
+        .catch(error => this.errorHandler(error));
     }
 
-    getRole(Id : string){
+    getRole(Id: string) {
         return this._http.get<Role>(this.baseUrl + 'api/admin/Role/GetRoleById/' + Id)
             .map(response => {
                 return response;
             })
-            .catch(this.errorHandler)
+            .catch(error => this.errorHandler(error));
     }
 
-    getRoles(){
+    getRoles() {
         return this._http.get<Role[]>(this.baseUrl + 'api/admin/Role/GetRoles')
             .map(response => {
                 return response;
             })
-            .catch(this.errorHandler)
+            .catch(error => this.errorHandler(error));
     }
 
-    deleteRole(Id : string){
+    deleteRole(Id: string) {
         return this._http.delete<number>(this.baseUrl + 'api/admin/Role/DeleteRole/' + Id)
             .map( response => {
                 return response;
             })
-            .catch(this.errorHandler)
+            .catch(error => this.errorHandler(error));
     }
 
-    updateRole(updateRole: Role){
+    updateRole(updateRole: Role) {
         return this._http.put<number>(this.baseUrl + 'api/admin/Role/UpdateRole', updateRole, httpOptions)
             .map(response => {
                 return response;
             })
-            .catch(this.errorHandler)
+            .catch(error => this.errorHandler(error));
     }
-    
-    errorHandler(error: Response){
-        console.log(error)
-        return Observable.throw(error)
+
+    getUserRoles(userId: string) {
+        return this._http.get<Role[]>(this.baseUrl + 'api/admin/Login/GetUserRolesAsync' + userId)
+            .map(response => {
+                return response;
+            })
+            .catch(error => this.errorHandler(error));
+    }
+
+    errorHandler(error: Response) {
+        console.log(error);
+        return Observable.throw(error);
     }
 }

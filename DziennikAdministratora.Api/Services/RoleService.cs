@@ -50,5 +50,13 @@ namespace DziennikAdministratora.Api.Services
             role.SetName(model.Name);
             await _roleRepo.UpdateRoleAsync(role);
         }
+
+        public async Task<IEnumerable<RoleViewModel>> GetUserRolesAsync(Guid Id)
+        {
+            var roles = await _roleRepo.GetRolesAsync();
+            var userRoles = roles.Select(x => x.UsersInRoles.Where(y => y.UserId == Id));
+
+            return _mapper.Map<IEnumerable<RoleViewModel>>(userRoles);
+        }
     }
 }

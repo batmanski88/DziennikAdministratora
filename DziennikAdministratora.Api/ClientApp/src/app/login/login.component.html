@@ -1,35 +1,40 @@
 <section class='login-section container body-content'>
-    <div class='row'>
-        <h2> {{ title }} </h2>
-        <form (ngSubmit)="save(login)" #loginForm="ngForm">
-            <div class='form-group row'>
-                <label class='control-label col-md-2'> Email: </label>
-                <div class='col-sm-3'>
-                    <input class='form-control' [(ngModel)]="login.email" type="email" name="email" required email id="email" #email="ngModel">
-                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
-                        <div *ngIf="email.errors.required">
-                            Email jest wymagany.
-                        </div>
-                        <div *ngIf="email.errors.email">
-                            Niepoprawna forma adresu email.
-                        </div>
-                    </div>
-                </div>
+    <div>
+        <div class='row'>
+            <div class='col-xs-12 header'>
+                <h2 class='text-center'> {{ title }} </h2>
             </div>
-            <div class='form-group row'>
-                <label class='control-label col-md-2'> Hasło: </label>
-                <div class='col-sm-3'>
-                    <input class='form-control' [(ngModel)]="login.password" type="password" name="name" required  #password="ngModel">
-                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
-                        <div *ngIf="password.errors.required">
-                            Hasło jest wymagane.
+            
+            <form (ngSubmit)="save(login)" #loginForm="ngForm">
+                <div class='form-group row'>
+                    <div class='col-xs-10 col-xs-offset-1'>
+                        <input class='form-control' [(ngModel)]="login.email" type="email" name="email" required email id="email" #email="ngModel" placeholder="Adres Email">
+                        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                            <div *ngIf="email.errors.required">
+                                Email jest wymagany.
+                            </div>
+                            <div *ngIf="email.errors.email">
+                                Niepoprawna forma adresu email.
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class='form-group row'>
-                <button type='submit' class='btn btn-primary' [disabled]="!loginForm.valid">Zaloguj</button>
-            </div>
-        </form>
+                <div class='form-group row'>
+                    <div class='col-xs-10 col-xs-offset-1'>
+                        <input class='form-control' [(ngModel)]="login.password" type="password" name="name" required #password="ngModel" placeholder="Haslo">
+                        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+                            <div *ngIf="password.errors.required">
+                                Hasło jest wymagane.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='form-group row'>
+                    <div class="col-xs-offset-1 col-xs-3">
+                       <button type='submit' class='btn btn-primary' [disabled]="!loginForm.valid">Zaloguj</button> 
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </section>

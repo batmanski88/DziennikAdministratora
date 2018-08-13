@@ -15,7 +15,6 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-
 namespace DziennikAdministratora.Api
 {
     public class Startup
@@ -38,6 +37,25 @@ namespace DziennikAdministratora.Api
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            ConfigureJwtAuthService(services);
+            services.AddOpenIddict()
+                .AddCore(options =>
+                {
+                    options.UseEntityFrameworkCore()
+                           .UseDbContext<AppDbContext>();
+                })
+                .AddServer(options => 
+                {
+                    options.UseMvc();
+                    options.AddDevelopmentSigningCertificate();
+                    options.EnableTokenEndpoint("/connect/token");
+                    options.AllowPasswordFlow();
+                    options.AcceptAnonymousClients();
+                    options.DisableHttpsRequirement();
+                    options.UseJsonWebTokens();
+                })
+                .AddValidation();
+            
             services.AddEntityFrameworkSqlServer()
                 .AddDbContext<AppDbContext>();
 
@@ -46,31 +64,37 @@ namespace DziennikAdministratora.Api
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-
-            var jwtSettings = Configuration.GetSettings<JwtSettings>();
-            services.AddAuthentication(options => 
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(configureOptions => 
-            {
-                configureOptions.TokenValidationParameters = new TokenValidationParameters()
-                {
-                    ValidateIssuer = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-
-                    ValidIssuer = jwtSettings.Issuer,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
-                };              
-            });
-
             var builder = new ContainerBuilder();
             builder.Populate(services);
             builder.RegisterModule(new ContainerModule(Configuration));
             ApplicationContainer = builder.Build();
 
             return new AutofacServiceProvider(ApplicationContainer);
+        }
+        
+        public void ConfigureJwtAuthService(IServiceCollection services)
+        {
+            var jwtSettings = Configuration.GetSettings<JwtSettings>();
+            services.AddAuthentication(options => 
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;    
+            }).AddJwtBearer(configureOptions => 
+            {
+                configureOptions.RequireHttpsMetadata = false;
+                configureOptions.SaveToken = true;
+                configureOptions.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateIssuerSigningKey = true,
+
+                    ValidIssuer = jwtSettings.Issuer,
+                    ValidAudience = jwtSettings.Issuer,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key))
+                };              
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

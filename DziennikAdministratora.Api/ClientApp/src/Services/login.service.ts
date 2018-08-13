@@ -1,5 +1,6 @@
 import { Injectable, Inject} from '@angular/core';
-import { Response} from '@angular/http';
+import { Response, Jsonp} from '@angular/http';
+// tslint:disable-next-line:import-blacklist
 import { Observable} from 'rxjs/Rx';
 import { Login } from '../app/models/login';
 import { LoginBackendService } from '../Services/loginBackend.service';
@@ -16,42 +17,46 @@ const httpOptions = {
 
 @Injectable()
 export class LoginService extends LoginBackendService {
-    slogin : Login = new Login();
-    baseUrl : string = "";
+    slogin: Login = new Login();
+    baseUrl = '';
 
-    constructor(private _http : HttpClient, @Inject('BASE_URL') _baseUrul : string){
-        super()
-        
+    constructor(private _http: HttpClient, @Inject('BASE_URL') _baseUrul: string) {
+        super();
     }
 
-    login(newLogin: Login){
-        return this._http.post<any>(this.baseUrl + 'api/Login/LoginAsync', newLogin, httpOptions)  
+    login(newLogin: Login) {
+        return this._http.post<any>(this.baseUrl + 'api/Login/LoginAsync', newLogin, httpOptions)
             .map(user => {
-                if(user && user.token) {
-                    localStorage.setItem('currentUser', JSON.stringify(user));
+                if (user && user.token) {
+                    sessionStorage.setItem('token', user.token);
+                    sessionStorage.setItem('expiryMinutes', user.expiryMinutes);
                 }
 
                 return user;
-            }) 
-            .catch(this.errorHandler)
+            })
+            .catch(this.errorHandler);
 
     }
 
     logOut() {
-        localStorage.removeItem('currentUser');
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('expiryMinutes');
     }
 
     isAuthenticated(): boolean {
-        if(localStorage.getItem('currentUser') != null){
+        if (sessionStorage.getItem('token') != null) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
-    
-    errorHandler(error: Response){
-        console.log(error)
-        return Observable.throw(error)
+
+    getToken(): string {
+        return sessionStorage.getItem('token');
+    }
+
+    errorHandler(error: Response) {
+        console.log(error);
+        return Observable.throw(error);
     }
 }

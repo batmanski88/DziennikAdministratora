@@ -9,7 +9,6 @@ namespace DziennikAdministratora.Repository.IRepo
         DbSet<T> Set<T>() where T : class; 
         Task<int> SaveChangesAsync();
         DbSet<User> Users {get; set;}
-        DbSet<Category> Categories {get; set;}
         DbSet<Role> Roles {get; set;}
         DbSet<Note> Notes {get; set;}
         DbSet<Jwt> Jwts {get; set;}

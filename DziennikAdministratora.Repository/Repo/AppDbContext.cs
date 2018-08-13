@@ -15,7 +15,6 @@ namespace DziennikAdministratora.Repository.Repo
         }
 
         public DbSet<User> Users {get; set;}
-        public DbSet<Category> Categories {get; set;}
         public DbSet<Role> Roles {get; set;}
         public DbSet<Note> Notes {get; set;}
         public DbSet<Jwt> Jwts {get; set;}

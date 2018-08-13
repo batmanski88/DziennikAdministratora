@@ -32,18 +32,16 @@ namespace DziennikAdministratora.Api.Services
             claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
             claims.Add(new Claim(JwtRegisteredClaimNames.Iat, now.ToTimeStamp().ToString(), ClaimValueTypes.Integer64));
 
-            foreach(var item in roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, item.Name.ToString()));
-            }
+            claims.AddRange(roles.Select(role => new Claim(ClaimsIdentity.DefaultRoleClaimType, role.Name)));
+            
             
             var expires = now.AddMinutes(_jwtConfig.ExpiryMinutes);
             var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtConfig.Key)), SecurityAlgorithms.HmacSha256);
 
             var jwt = new JwtSecurityToken(
                 issuer: _jwtConfig.Issuer,
+                audience: _jwtConfig.Issuer,
                 claims: claims,
-                notBefore: now,
                 expires: expires,
                 signingCredentials: signingCredentials
             );

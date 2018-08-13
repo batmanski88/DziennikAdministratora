@@ -21,10 +21,6 @@ namespace DziennikAdministratora.Api.Infrastructure.IoC
             builder.RegisterType<RoleRepo>()
                 .As<IRoleRepo>()
                 .InstancePerLifetimeScope();
-            
-            builder.RegisterType<CategoryRepo>()
-                .As<ICategoryRepo>()
-                .InstancePerLifetimeScope();
 
             builder.RegisterType<NoteRepo>()
                 .As<INoteRepo>()

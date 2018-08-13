@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -24,6 +24,8 @@ import { NavAdminComponent } from './navadmin/navadmin.component';
 import { HttpModule } from '@angular/http';
 import { AuthGuard } from './guards';
 import { EqualValidator } from './helpers/matchValidator';
+import { TokenInterceptor } from './login/TokenInterceptor';
+import { RoleGuardService } from './guards/role.guard';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,7 @@ import { EqualValidator } from './helpers/matchValidator';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
+      // tslint:disable-next-line:max-line-length
       { path: 'admin', component: AdminComponent, canActivate: [AuthGuard], children: [
         { path: 'roles', component: FetchRoleComponent },
         { path: 'addrole', component: AddRole },
@@ -68,7 +71,13 @@ import { EqualValidator } from './helpers/matchValidator';
     RoleService,
     UserService,
     LoginService,
-    AuthGuard
+    AuthGuard,
+    RoleGuardService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

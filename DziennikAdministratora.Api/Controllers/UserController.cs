@@ -2,6 +2,8 @@ using System;
 using System.Threading.Tasks;
 using DziennikAdministratora.Api.Services;
 using DziennikAdministratora.Api.ViewModels.AccountViewModels;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DziennikAdministratora.Api.Controllers
@@ -16,21 +18,22 @@ namespace DziennikAdministratora.Api.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "SuperAdmin")]
         [Route("api/admin/User/GetUsers")]
-        public async Task<JsonResult> GetUsers()
+        public async Task<IActionResult> GetUsers()
         {
             var users = await _accountService.GetUsersAsync();
 
-            return Json(users);
+            return Ok(users);
         }
 
         [HttpGet]
         [Route("api/admin/User/GetUserById/{Id}")]
-        public async Task<JsonResult> GetUserById(Guid Id)
+        public async Task<IActionResult> GetUserById(Guid Id)
         {
             var user = await _accountService.GetUserByIdAsync(Id);
 
-            return Json(user);
+            return Ok(user);
         }
 
         [HttpPost]

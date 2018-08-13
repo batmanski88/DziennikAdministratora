@@ -1,14 +1,9 @@
 .body-content{
     float: left;
     position: relative;
-    padding-top: 6%; 
 }
 
 @media(max-height: 600px){
-    .body-content{
-        padding-top: 10%;
-    }
-
     .nav-admin{
         padding-top: 15%;
     }

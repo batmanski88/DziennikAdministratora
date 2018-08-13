@@ -12,7 +12,6 @@ namespace DziennikAdministratora.Repository.Model
         public DateTime CreatedAt { get; protected set; }
         public DateTime UpdatedAt { get; protected set; }
         public virtual User User { get; protected set; }
-        public virtual Category Category { get; protected set; }
 
         protected Note()
         {

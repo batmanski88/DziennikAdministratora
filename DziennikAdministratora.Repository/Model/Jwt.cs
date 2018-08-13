@@ -21,5 +21,23 @@ namespace DziennikAdministratora.Repository.Model
             Token = token;
             ExpiryMinutes = expiryMinutes;
         }
+
+        public void SetToken(string token)
+        {
+            if(Token == token)
+            {
+                return;
+            }
+            Token = token;
+        }
+
+        public void SetExpiryMinutes(long expiryMinutes)
+        {
+            if(ExpiryMinutes == expiryMinutes)
+            {
+                return;
+            }
+            ExpiryMinutes = expiryMinutes;
+        }
     }
 }

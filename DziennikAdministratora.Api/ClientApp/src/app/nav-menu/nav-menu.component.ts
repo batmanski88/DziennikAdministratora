@@ -1,6 +1,7 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { LoginService } from '../../Services/login.service';
 import { AuthGuard } from '../guards';
+import { RoleGuardService } from '../guards/role.guard';
 
 @Component({
   selector: 'app-nav-menu',
@@ -12,8 +13,7 @@ export class NavMenuComponent {
   public get loggedIn(): boolean {
     return this.loginService.isAuthenticated();
   }
-
-  constructor(private loginService: LoginService, private authGuard: AuthGuard) {
+  constructor(private loginService: LoginService, private roleGuard: RoleGuardService) {
   }
 
   logout() {

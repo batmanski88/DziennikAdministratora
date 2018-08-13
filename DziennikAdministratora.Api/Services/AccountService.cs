@@ -48,7 +48,9 @@ namespace DziennikAdministratora.Api.Services
         public async Task<UserViewModel> GetUserByIdAsync(Guid Id)
         {
             var user = await _userRepo.GetUserByIdAsync(Id);
-
+            var roles = await _roleRepo.GetRolesAsync();
+            var rolesByUserId = roles.Select(x => x.UsersInRoles.Select(y => y.UserId == Id));
+            
             return _mapper.Map<UserViewModel>(user);
         }
 
@@ -102,11 +104,19 @@ namespace DziennikAdministratora.Api.Services
             
             var hash = _encrypter.GetHash(model.Password, user.Salt);
             var tokenTemp = _jwtHandler.CreateToken(user.UserId.ToString(), roles);
-            var jwt = new Jwt(Guid.NewGuid(), user.UserId, tokenTemp.Token, tokenTemp.ExpiryMinutes);
 
-            if(user.Password == hash)
+            var jwt = await _jwtRepo.GetJwtAsync(user.UserId);
+
+            if(jwt == null && user.Password == hash)
             {
+                jwt = new Jwt(Guid.NewGuid(), user.UserId, tokenTemp.Token, tokenTemp.ExpiryMinutes);
                 await _jwtRepo.SetJwtAsync(jwt);
+            }
+            else
+            {
+                jwt.SetToken(tokenTemp.Token);
+                jwt.SetExpiryMinutes(tokenTemp.ExpiryMinutes);
+                await _jwtRepo.UpdateJwtAsync(jwt);
             }
         }
 
