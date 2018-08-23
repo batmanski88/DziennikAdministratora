@@ -34,12 +34,5 @@ namespace DziennikAdministratora.Api.Controllers
 
             return Ok(jwt);
         }
-
-        [HttpGet("[action]")]
-        public async Task<IActionResult> GetUserRolesAsync([FromBody]Guid userId)
-        {
-            var userRoles = await _roleService.GetUserRolesAsync(userId);
-            return Ok(userRoles);
-        }
     }
 }

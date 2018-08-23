@@ -1,7 +1,6 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { LoginService } from '../../Services/login.service';
-import { AuthGuard } from '../guards';
-import { RoleGuardService } from '../guards/role.guard';
+import { Role } from '../models/role';
 
 @Component({
   selector: 'app-nav-menu',
@@ -13,9 +12,12 @@ export class NavMenuComponent {
   public get loggedIn(): boolean {
     return this.loginService.isAuthenticated();
   }
-  constructor(private loginService: LoginService, private roleGuard: RoleGuardService) {
+  public get isSuperAdmin(): boolean {
+    return this.superAdmin();
   }
-
+  constructor(private loginService: LoginService) {
+  }
+  userRoles: Role[];
   logout() {
     this.loginService.logOut();
   }
@@ -26,5 +28,15 @@ export class NavMenuComponent {
 
   toggle() {
     this.isExpanded = !this.isExpanded;
+  }
+
+  superAdmin(): boolean {
+    this.userRoles = JSON.parse(sessionStorage.getItem('roles'));
+
+    for (const i in this.userRoles) {
+      if (this.userRoles[i].name === 'SuperAdmin') {
+        return true;
+      }
+    }
   }
 }

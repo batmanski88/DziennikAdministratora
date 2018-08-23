@@ -1,10 +1,5 @@
 .body-content{
     float: left;
-    position: relative;
-}
-
-@media(max-height: 600px){
-    .nav-admin{
-        padding-top: 15%;
-    }
+    position: inherit;
+    top: 8%;
 }

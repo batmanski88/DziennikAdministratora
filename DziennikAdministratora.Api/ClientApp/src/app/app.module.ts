@@ -56,7 +56,7 @@ import { RoleGuardService } from './guards/role.guard';
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       // tslint:disable-next-line:max-line-length
-      { path: 'admin', component: AdminComponent, canActivate: [AuthGuard], children: [
+      { path: 'admin', component: AdminComponent, canActivate: [RoleGuardService], data: { expectedRole: 'SuperAdmin' }, children: [
         { path: 'roles', component: FetchRoleComponent },
         { path: 'addrole', component: AddRole },
         { path: 'role/edit/:id', component: AddRole},

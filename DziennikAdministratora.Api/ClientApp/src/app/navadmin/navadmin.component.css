@@ -1,13 +1,21 @@
 li .glyphicon {
     margin-right: 10px;
 }
-
+li a {
+    color: rgb(75, 74, 74);
+}
+li a:hover,
+li a:focus {
+    background-color:  greenyellow;
+    color: rgb(75, 74, 74);
+    border-radius: 5px;
+}
 /* Highlighting rules for nav menu items */
 li.link-active a,
 li.link-active a:hover,
 li.link-active a:focus {
-    background-color: rgb(120, 171, 236);
-    color: brown;
+    background-color:  greenyellow;
+    color: rgb(155, 155, 155);
     border-radius: 5px;
 }
 
@@ -19,12 +27,9 @@ li.link-active a:focus {
 
     .nav-admin {
         position: fixed;
-        top: 13%;
-        left: 0;
-        right: 0;
         width: calc(20% - 25px);
-        background-color:  rgb(243, 146, 238); 
-        border: 1px solid rgb(240, 6, 248);
+        background-color:  rgb(60, 184, 60); 
+        border: 1px solid green;
         margin: 10px 5px 10px 3px;
         border-radius: 3%;
     }

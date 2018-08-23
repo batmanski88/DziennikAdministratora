@@ -52,7 +52,7 @@ namespace DziennikAdministratora.Api.Controllers
             }
             await _roleService.UpdateRolesAsync(model);
 
-            return new OkObjectResult("Konto zostało utworzone");
+            return new OkObjectResult("Rola pomyślnie utworzona!");
         }
 
         [HttpDelete]

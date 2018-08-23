@@ -40,9 +40,23 @@ namespace DziennikAdministratora.Api.Services
         public async Task<JwtModel> GetJwtAsync(string email)
         {
             var user = await _userRepo.GetUserByEmailAsync(email);
+            var roles = new List<Role>();
+
+            foreach(var UserInRole in user.UserInRoles)
+            {
+                roles.Add(UserInRole.Role);
+            }
+
             var jwt = await _jwtRepo.GetJwtAsync(user.UserId);
 
-            return _mapper.Map<JwtModel>(jwt);
+            JwtModel jwtModel = new JwtModel()
+            {
+                Token = jwt.Token,
+                ExpiryMinutes = jwt.ExpiryMinutes,
+                UserRoles = _mapper.Map<List<RoleViewModel>>(roles)
+            };
+
+            return jwtModel;
         }
 
         public async Task<UserViewModel> GetUserByIdAsync(Guid Id)
@@ -118,11 +132,6 @@ namespace DziennikAdministratora.Api.Services
                 jwt.SetExpiryMinutes(tokenTemp.ExpiryMinutes);
                 await _jwtRepo.UpdateJwtAsync(jwt);
             }
-        }
-
-        public Task LogoutAsync()
-        {
-            throw new System.NotImplementedException();
         }
 
         public async Task RegisterUserAsync(RegisterViewModel model)

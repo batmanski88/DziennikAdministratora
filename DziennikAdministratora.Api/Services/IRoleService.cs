@@ -13,6 +13,5 @@ namespace DziennikAdministratora.Api.Services
         Task<IEnumerable<RoleViewModel>> GetRolesAsync();
         Task RemoveRoleAsync(Guid Id);
         Task UpdateRolesAsync(RoleViewModel model);
-        Task<IEnumerable<RoleViewModel>> GetUserRolesAsync(Guid Id);
     }
 }

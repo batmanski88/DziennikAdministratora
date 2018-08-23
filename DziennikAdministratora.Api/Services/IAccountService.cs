@@ -10,7 +10,6 @@ namespace DziennikAdministratora.Api.Services
     {
         Task RegisterUserAsync(RegisterViewModel model);
         Task Login(LoginViewModel model);
-        Task LogoutAsync();
         Task<JwtModel> GetJwtAsync(string email);
         Task<IEnumerable<UserViewModel>> GetUsersAsync();
         Task<UserViewModel> GetUserByIdAsync(Guid Id);

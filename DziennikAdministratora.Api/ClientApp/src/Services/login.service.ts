@@ -7,6 +7,8 @@ import { LoginBackendService } from '../Services/loginBackend.service';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Jwt } from '../app/models/token';
+import { ParseError } from '@angular/compiler';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -25,14 +27,15 @@ export class LoginService extends LoginBackendService {
     }
 
     login(newLogin: Login) {
-        return this._http.post<any>(this.baseUrl + 'api/Login/LoginAsync', newLogin, httpOptions)
-            .map(user => {
-                if (user && user.token) {
-                    sessionStorage.setItem('token', user.token);
-                    sessionStorage.setItem('expiryMinutes', user.expiryMinutes);
+        return this._http.post<Jwt>(this.baseUrl + 'api/Login/LoginAsync', newLogin, httpOptions)
+            .map(jwt => {
+                if (jwt && jwt.token) {
+                    sessionStorage.setItem('token', jwt.token);
+                    sessionStorage.setItem('expiryMinutes', JSON.stringify(jwt.expiryMinutes));
+                    sessionStorage.setItem('roles', JSON.stringify(jwt.userRoles));
                 }
 
-                return user;
+                return jwt;
             })
             .catch(this.errorHandler);
 
@@ -41,6 +44,7 @@ export class LoginService extends LoginBackendService {
     logOut() {
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('expiryMinutes');
+        sessionStorage.removeItem('roles');
     }
 
     isAuthenticated(): boolean {

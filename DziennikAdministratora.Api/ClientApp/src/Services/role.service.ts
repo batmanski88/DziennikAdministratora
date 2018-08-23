@@ -18,11 +18,12 @@ const httpOptions = {
 export class RoleService extends RoleBackendService {
     role: Observable<Role>;
     roles: Observable<Role[]>;
-    baseUrl: '';
+    // tslint:disable-next-line:no-inferrable-types
+    baseUrl: string = '';
 
-    constructor(private _http: HttpClient , @Inject('BASE_URL') _baseUrul: string) {
+    constructor(private _http: HttpClient , @Inject('BASE_URL') _baseUrl: string) {
         super();
-        this.baseUrl = this.baseUrl;
+        this.baseUrl = _baseUrl;
     }
 
     addRole(newRole: Role) {
@@ -66,7 +67,7 @@ export class RoleService extends RoleBackendService {
     }
 
     getUserRoles(userId: string) {
-        return this._http.get<Role[]>(this.baseUrl + 'api/admin/Login/GetUserRolesAsync' + userId)
+        return this._http.get<Role[]>(this.baseUrl + 'api/admin/Role/GetUserRolesAsync/' + userId)
             .map(response => {
                 return response;
             })

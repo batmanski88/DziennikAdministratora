@@ -77,9 +77,7 @@ namespace DziennikAdministratora.Api
             var jwtSettings = Configuration.GetSettings<JwtSettings>();
             services.AddAuthentication(options => 
             {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;    
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;   
             }).AddJwtBearer(configureOptions => 
             {
                 configureOptions.RequireHttpsMetadata = false;

@@ -12,9 +12,20 @@
     font-size: 18px;
 }
 
-@media(max-height: 765px) {
+@media(max-width: 765px) {
     .body-content {
         width: 90%;
         margin-top: 10%;
     }
+}
+
+.form-control {
+    border-bottom: 1px solid green;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+}
+
+.form-control:focus {
+    border: 1px solid greenyellow;
 }

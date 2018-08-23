@@ -3029,11 +3029,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\mlapinski\\Documents\\DziennikAdmina\\DziennikAdministratora.Repository\\DziennikAdministratora.Repository.csproj",
+      "projectUniqueName": "e:\\MLapinski\\DziennikAdministratora\\DziennikAdministratora\\DziennikAdministratora.Repository\\DziennikAdministratora.Repository.csproj",
       "projectName": "DziennikAdministratora.Repository",
-      "projectPath": "c:\\Users\\mlapinski\\Documents\\DziennikAdmina\\DziennikAdministratora.Repository\\DziennikAdministratora.Repository.csproj",
+      "projectPath": "e:\\MLapinski\\DziennikAdministratora\\DziennikAdministratora\\DziennikAdministratora.Repository\\DziennikAdministratora.Repository.csproj",
       "packagesPath": "C:\\Users\\mlapinski\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\mlapinski\\Documents\\DziennikAdmina\\DziennikAdministratora.Repository\\obj\\",
+      "outputPath": "e:\\MLapinski\\DziennikAdministratora\\DziennikAdministratora\\DziennikAdministratora.Repository\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
