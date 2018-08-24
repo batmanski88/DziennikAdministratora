@@ -8,11 +8,7 @@ namespace DziennikAdministratora.Api.Services
 {
     public interface IAccountService
     {
-        Task RegisterUserAsync(RegisterViewModel model);
         Task Login(LoginViewModel model);
         Task<JwtModel> GetJwtAsync(string email);
-        Task<IEnumerable<UserViewModel>> GetUsersAsync();
-        Task<UserViewModel> GetUserByIdAsync(Guid Id);
-        Task DeleteUserAsync(Guid Id);
     }
 }

@@ -11,10 +11,12 @@ namespace DziennikAdministratora.Api.Controllers
     public class UserController : Controller
     {
         private readonly IAccountService _accountService;
+        private readonly IAdminService _adminService;
 
-        public UserController(IAccountService accountService)
+        public UserController(IAccountService accountService, IAdminService adminService)
         {
             _accountService = accountService;
+            _adminService = adminService;
         }
 
         [HttpGet]
@@ -22,7 +24,7 @@ namespace DziennikAdministratora.Api.Controllers
         [Route("api/admin/User/GetUsers")]
         public async Task<IActionResult> GetUsers()
         {
-            var users = await _accountService.GetUsersAsync();
+            var users = await _adminService.GetUsersAsync();
 
             return Ok(users);
         }
@@ -31,7 +33,7 @@ namespace DziennikAdministratora.Api.Controllers
         [Route("api/admin/User/GetUserById/{Id}")]
         public async Task<IActionResult> GetUserById(Guid Id)
         {
-            var user = await _accountService.GetUserByIdAsync(Id);
+            var user = await _adminService.GetUserByIdAsync(Id);
 
             return Ok(user);
         }
@@ -45,7 +47,7 @@ namespace DziennikAdministratora.Api.Controllers
                 return BadRequest();
             }
 
-            await _accountService.RegisterUserAsync(model);
+            await _adminService.RegisterUserAsync(model);
 
             return CreatedAtAction("GetUsers", new { id = model.Email});
         }
@@ -54,7 +56,7 @@ namespace DziennikAdministratora.Api.Controllers
         [Route("api/admin/User/DeleteUsersASync/{Id}")]
         public async Task<IActionResult> DeleteUsersASync(Guid Id)
         {
-            await _accountService.DeleteUserAsync(Id);
+            await _adminService.DeleteUserAsync(Id);
 
             return NoContent();
         }

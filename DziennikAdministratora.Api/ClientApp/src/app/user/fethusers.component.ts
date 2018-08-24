@@ -44,4 +44,13 @@ export class FetchUserComponent implements OnInit {
         ];
         }
     }
+
+    resetPassword(id: string) {
+        const ans = confirm('Czy na pewno chcesz zresetowac haslo?');
+
+        // tslint:disable-next-line:no-unused-expression
+        if (ans) { [
+
+        ]; }
+    }
 }

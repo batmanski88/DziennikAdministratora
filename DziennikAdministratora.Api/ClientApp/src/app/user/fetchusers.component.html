@@ -1,7 +1,7 @@
 <section class='fetch-roles'>
     <div class='row'>
-    <p *ngIf="!users"><em>Loading...</em></p>
-    <p>{{ tempinfo }}</p>
+        <p *ngIf="!users"><em>Loading...</em></p>
+        <p>{{ tempinfo }}</p>
         <div class='col-md-3'>
             <a [routerLink]="['/admin/adduser']" class='btn btn-primary'>Dodaj użytkownika</a>
         </div>
@@ -36,8 +36,10 @@
             <div class='col-md-3'>
                 {{ user.userName }}
             </div>
-            <div class='col-md-2' *ngFor="let role of user.roles">
-                {{ role.name }} 
+            <div class='col-md-2'>
+                <div *ngFor="let role of user.roles">
+                    {{ role.name }}
+                </div>
             </div>
             <div class='col-md-2'>
                 {{ user.createdAt | dateFormat}}
@@ -48,7 +50,8 @@
         </div>
         <div class='col-md-4'>
             <a [routerLink]="['/admin/user/edit/', user.userId]" class="btn btn-warning">Edycja</a> |
-            <a [routerLink]="" (click)="delete(user.userId)" class="btn btn-danger">Usuń</a>
+            <a [routerLink]="" (click)="delete(user.userId)" class="btn btn-danger">Usuń</a> |
+            <a [routerLink]="" (click)="resetPassword(user.userId)" class="btn btn-info">Resetuj haslo</a>
         </div>
     </div>
 </section>

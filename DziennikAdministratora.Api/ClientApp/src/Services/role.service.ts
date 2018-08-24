@@ -9,8 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 const httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type':  'application/json',
-      'Authorization': 'my-auth-token'
+      'Content-Type':  'application/json'
     })
   };
 @Injectable()
@@ -60,14 +59,6 @@ export class RoleService extends RoleBackendService {
 
     updateRole(updateRole: Role) {
         return this._http.put<number>(this.baseUrl + 'api/admin/Role/UpdateRole', updateRole, httpOptions)
-            .map(response => {
-                return response;
-            })
-            .catch(error => this.errorHandler(error));
-    }
-
-    getUserRoles(userId: string) {
-        return this._http.get<Role[]>(this.baseUrl + 'api/admin/Role/GetUserRolesAsync/' + userId)
             .map(response => {
                 return response;
             })

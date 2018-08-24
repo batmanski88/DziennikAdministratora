@@ -8,7 +8,6 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Jwt } from '../app/models/token';
-import { ParseError } from '@angular/compiler';
 
 const httpOptions = {
     headers: new HttpHeaders({

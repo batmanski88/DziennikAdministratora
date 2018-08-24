@@ -16,5 +16,4 @@ export abstract class RoleBackendService {
 
     abstract deleteRole(Id: String): Observable<number>;
 
-    abstract getUserRoles(userId: String): Observable<Role[]>;
 }
