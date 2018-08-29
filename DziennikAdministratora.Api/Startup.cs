@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using StackExchange.Redis;
+
 namespace DziennikAdministratora.Api
 {
     public class Startup
@@ -32,30 +34,19 @@ namespace DziennikAdministratora.Api
 
         public IConfiguration Configuration { get; }
         public IContainer ApplicationContainer {get; private set;}
-
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             ConfigureJwtAuthService(services);
-            services.AddOpenIddict()
-                .AddCore(options =>
-                {
-                    options.UseEntityFrameworkCore()
-                           .UseDbContext<AppDbContext>();
-                })
-                .AddServer(options => 
-                {
-                    options.UseMvc();
-                    options.AddDevelopmentSigningCertificate();
-                    options.EnableTokenEndpoint("/connect/token");
-                    options.AllowPasswordFlow();
-                    options.AcceptAnonymousClients();
-                    options.DisableHttpsRequirement();
-                    options.UseJsonWebTokens();
-                })
-                .AddValidation();
+            services.AddDistributedRedisCache(options => 
+            {
+                options.Configuration = "localhost:5001";
+                options.InstanceName = "AppInstance";
+            });
             
+            services.AddMemoryCache();
             services.AddEntityFrameworkSqlServer()
                 .AddDbContext<AppDbContext>();
 

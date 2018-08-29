@@ -22,6 +22,14 @@ namespace DziennikAdministratora.Api.Infrastructure.IoC
             builder.RegisterType<RoleService>()
                 .As<IRoleService>()
                 .InstancePerLifetimeScope();
+            
+            builder.RegisterType<AdminService>()
+                .As<IAdminService>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<NoteService>()
+                .As<INoteService>()
+                .InstancePerLifetimeScope();
         }
     }
 }

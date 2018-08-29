@@ -28,7 +28,7 @@ namespace DziennikAdministratora.Api.Controllers
             }
 
             await _noteService.AddNewNote(model);
-            return Ok();
+            return CreatedAtAction("GetNotes", new { id = model.NoteId });
         }
 
         [HttpPut]
@@ -50,6 +50,14 @@ namespace DziennikAdministratora.Api.Controllers
         {
             await _noteService.RemoveNote(Id);
             return NoContent();
+        }
+
+        [HttpGet]
+        [Route("api/Note/GetRole/{Id}")]
+        public async Task<IActionResult> GetRole(Guid Id)
+        {
+            await _noteService.GetNoteByIdAsync(Id);
+            return Ok();
         }
     }
 }

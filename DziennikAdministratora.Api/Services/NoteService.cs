@@ -37,6 +37,12 @@ namespace DziennikAdministratora.Api.Services
             await _noteRepo.UpdateNoteAsync(note);
         }
 
+        public async Task<NoteViewModel> GetNoteByIdAsync(Guid noteId)
+        {
+            var note = await _noteRepo.GetNoteByIdAsync(noteId);
+            return _mapper.Map<NoteViewModel>(note);
+        }
+
         public async Task<IEnumerable<NoteViewModel>> GetNotes()
         {
             var notes = await _noteRepo.GetNotesAsync();

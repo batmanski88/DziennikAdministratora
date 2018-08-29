@@ -9,7 +9,8 @@ namespace DziennikAdministratora.Api.Services
     {
         Task RegisterUserAsync(RegisterViewModel model);
         Task<IEnumerable<UserViewModel>> GetUsersAsync();
-        Task<UserViewModel> GetUserByIdAsync(Guid Id);
-        Task DeleteUserAsync(Guid Id);
+        Task<UserViewModel> GetUserByIdAsync(Guid userId);
+        Task DeleteUserAsync(Guid userId);
+        Task<int> ResetPassword(Guid userId);
     }
 }

@@ -60,5 +60,14 @@ namespace DziennikAdministratora.Api.Controllers
 
             return NoContent();
         }
+
+        [HttpPost]
+        [Route("api/admin/User/ResetPassword/{Id}")]
+        public async Task<IActionResult> ResetPassword(Guid Id)
+        {
+            var result = await _adminService.ResetPassword(Id);
+
+            return Ok(result);
+        }
     }
 }

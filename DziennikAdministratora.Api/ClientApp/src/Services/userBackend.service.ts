@@ -14,5 +14,5 @@ export abstract class UserBackendService {
 
     abstract deleteUser(id: string): Observable<number>;
 
-    abstract getUserRoles(userId: string): Observable<Role[]>;
+    abstract resetPassword(userId: string): Observable<number>;
 }

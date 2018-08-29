@@ -52,8 +52,8 @@ export class UserService extends UserBackendService {
             .catch(error => this.errorHandler(error));
     }
 
-    public getUserRoles(userId: string) {
-        return this._http.get<Role[]>(this.baseUrl + 'api/admin/User/GetUserRoles' + userId)
+    public resetPassword(Id: string) {
+        return this._http.post<number>(this.baseUrl + 'api/admin/User/ResetPassword/' + Id, httpOptions)
             .map(resp => resp)
             .catch(error => this.errorHandler(error));
     }

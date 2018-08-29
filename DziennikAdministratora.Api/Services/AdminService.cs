@@ -37,7 +37,7 @@ namespace DziennikAdministratora.Api.Services
             var user = await _userRepo.GetUserByIdAsync(Id);
             var roles = await _roleRepo.GetRolesAsync();
             var rolesByUserId = roles.Select(x => x.UsersInRoles.Select(y => y.UserId == Id));
-            
+
             return _mapper.Map<UserViewModel>(user);
         }
 
@@ -46,19 +46,19 @@ namespace DziennikAdministratora.Api.Services
             var users = await _userRepo.GetUsersAsync();
             var uservmList = new List<UserViewModel>();
 
-            foreach(var item in users)
-            {   
+            foreach (var item in users)
+            {
                 var userInRoles = item.UserInRoles;
                 var rolevmList = new List<RoleViewModel>();
 
-                foreach(var userInRole in item.UserInRoles)
+                foreach (var userInRole in item.UserInRoles)
                 {
                     var role = await _roleRepo.GetRoleByIdAsync(userInRole.RoleId);
                     rolevmList.Add(_mapper.Map<RoleViewModel>(role));
                 }
 
                 var uservm = new UserViewModel()
-                {   
+                {
                     UserId = item.UserId,
                     Email = item.Email,
                     UserName = item.UserName,
@@ -77,7 +77,7 @@ namespace DziennikAdministratora.Api.Services
         {
             var user = await _userRepo.GetUserByEmailAsync(model.Email);
 
-            if(user != null)
+            if (user != null)
             {
                 throw new Exception("Użytkownik już istnieje w bazie");
             }
@@ -87,9 +87,33 @@ namespace DziennikAdministratora.Api.Services
 
             user = new User(Guid.NewGuid(), model.Email, hash, salt);
             await _userRepo.AddUserAsync(user);
-            
+
             user.UserInRoles.Add(new UserInRole(user.UserId, model.Role.RoleId));
             await _userInRoleRepo.SaveUserInRoles(user.UserInRoles);
+        }
+
+        public async Task<int> ResetPassword(Guid userId)
+        {
+            var user = await _userRepo.GetUserByIdAsync(userId);
+            if (user == null)
+            {
+                throw new Exception("Użytkownik nie istnieje w bazie");
+            }
+            
+            if (user != null)
+            {
+                var salt = _encrypter.GetSalt("123456789");
+                var hash = _encrypter.GetHash("123456789", salt);
+
+                user.SetPassword(hash, salt);
+                await _userRepo.UpdateUserAsync(user);
+
+                return 1;
+            }
+            else 
+            {
+                return 0;
+            }
         }
     }
 }

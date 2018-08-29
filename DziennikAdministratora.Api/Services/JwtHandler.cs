@@ -56,7 +56,8 @@ namespace DziennikAdministratora.Api.Services
             return new JwtModel
             {
                 Token = token,
-                ExpiryMinutes = expires.ToTimeStamp()
+                ExpiryMinutes = expires.ToTimeStamp(),
+                UserRoles = _mapper.Map<List<RoleViewModel>>(roles) 
             };
         }
     }

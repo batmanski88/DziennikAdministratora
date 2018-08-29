@@ -16,7 +16,7 @@ export class FetchUserComponent implements OnInit {
     roles: Array<Role> = new Array<Role>();
     tempinfo = '';
     users: User[];
-
+    result: number;
     constructor(private roleService: RoleService, private router: Router, private userService: UserService) {
 
     }
@@ -50,7 +50,9 @@ export class FetchUserComponent implements OnInit {
 
         // tslint:disable-next-line:no-unused-expression
         if (ans) { [
-
+            this.userService.resetPassword(id).subscribe((data) => {
+                this.result = data;
+            }, error => console.log(error))
         ]; }
     }
 }

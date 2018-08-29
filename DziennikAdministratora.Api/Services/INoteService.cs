@@ -11,5 +11,6 @@ namespace DziennikAdministratora.Api.Services
         Task EditNote(AddNoteViewModel model);
         Task RemoveNote(Guid noteId);
         Task<IEnumerable<NoteViewModel>> GetNotes();
+        Task<NoteViewModel> GetNoteByIdAsync(Guid noteId);
     }
 }
